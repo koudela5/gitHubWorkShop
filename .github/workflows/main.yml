@@ -59,3 +59,18 @@ jobs:
       - name: Site speed.io run
         run: |
           docker run --shm-size=1g --rm sitespeedio/sitespeed.io https://procesor2017.github.io/gitHubWorkShop/ -b chrome
+
+  playwright:
+    needs: siteSpeedIo
+    name: Playwright - check klingon
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+      - name: Run Playwright
+        run: |
+          cd ${{ github.workspace }}/test/playwright
+          npm install
+          npm update
+          npm test
+  
